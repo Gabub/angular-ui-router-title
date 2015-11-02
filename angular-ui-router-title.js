@@ -29,7 +29,7 @@ angular.module("ui.router.title", ["ui.router"])
 							title: getTitleValue(state.locals.globals.$title),
 							state: state.self.name,
 							stateParams: state.locals.globals.$stateParams
-						})
+						});
 					}
 					state = state.parent;
 				}
@@ -46,9 +46,9 @@ angular.module("ui.router.title", ["ui.router"])
 						title: getTitleValue(state.locals.globals.$title),
 						state: state.self.name,
 						stateParams: state.locals.globals.$stateParams
-					})
+					});
 				}
-			}
+			
 			}
 		
 		});

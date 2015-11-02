@@ -30,12 +30,7 @@ angular.module("ui.router.title", ["ui.router"])
 						stateParams: state.locals.globals.$stateParams
 					})
 				}
-				if(state.data && state.data.$parent) {
-					state = $state.get(state.data.$parent);
-				}
-				else {
-					state = state.parent;
-				}
+				state = state.parent;
 			}
 		});
 

@@ -19,19 +19,38 @@ angular.module("ui.router.title", ["ui.router"])
 			$timeout(function() {
 				$rootScope.$title = title;
 			});
-
-			$rootScope.$breadcrumbs = [];
-			var state = $state.$current;
-			while(state) {
+			
+			if(!$rootScope.$breadcrumbs) {
+				$rootScope.$breadcrumbs = [];
+				var state = $state.$current;
+				while(state) {
+					if(state.resolve && state.resolve.$title) {
+						$rootScope.$breadcrumbs.unshift({
+							title: getTitleValue(state.locals.globals.$title),
+							state: state.self.name,
+							stateParams: state.locals.globals.$stateParams
+						})
+					}
+					state = state.parent;
+				}
+			}
+			else {
+				var state = $state.$current;
+				for(var i = 0; i < $rootScope.$breadcrumbs.length; i++) {
+					if($rootScope.$breadcrumbs[i].state == state.self.name && $rootScope.$breadcrumbs[i].stateParams == state.locals.globals.$stateParams){
+						$rootScope.$breadcrumbs = $rootScope.$breadcrumbs.splice(i, $rootScope.$breadcrumbs.length);
+					}			
+				}
 				if(state.resolve && state.resolve.$title) {
-					$rootScope.$breadcrumbs.unshift({
+					$rootScope.$breadcrumbs.push({
 						title: getTitleValue(state.locals.globals.$title),
 						state: state.self.name,
 						stateParams: state.locals.globals.$stateParams
 					})
 				}
-				state = state.parent;
 			}
+			}
+		
 		});
 
 		function getTitleValue(title) {

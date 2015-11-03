@@ -40,6 +40,7 @@ angular.module("ui.router.title", ["ui.router"])
 					if(state.self.data && state.self.data.homeState){ $rootScope.$breadcrumbs = []; }
 					if($rootScope.$breadcrumbs[i].state == state.self.name && $rootScope.$breadcrumbs[i].stateParams == state.locals.globals.$stateParams){
 						$rootScope.$breadcrumbs.splice(i, $rootScope.$breadcrumbs.length);
+						break;
 					}			
 				}
 				if(state.resolve && state.resolve.$title) {

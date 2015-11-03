@@ -36,8 +36,8 @@ angular.module("ui.router.title", ["ui.router"])
 			}
 			else {
 				var state = $state.$current;
+				if(state.self.data && state.self.data.homeState){ $rootScope.$breadcrumbs = []; }
 				for(var i = 0; i < $rootScope.$breadcrumbs.length; i++) {
-					if(state.self.data && state.self.data.homeState){ $rootScope.$breadcrumbs = []; }
 					if($rootScope.$breadcrumbs[i].state == state.self.name && $rootScope.$breadcrumbs[i].stateParams == state.locals.globals.$stateParams){
 						$rootScope.$breadcrumbs.splice(i, $rootScope.$breadcrumbs.length);
 						break;
